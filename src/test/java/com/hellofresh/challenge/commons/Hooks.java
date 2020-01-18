@@ -2,7 +2,7 @@ package com.hellofresh.challenge.commons;
 
 import com.hellofresh.challenge.driver.DriverFactory;
 import com.hellofresh.challenge.pages.PageFactory;
-import com.hellofresh.challenge.utils.CommonUtils;
+import com.hellofresh.challenge.Configuration;
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
@@ -22,7 +22,7 @@ public class Hooks {
         if (browser == null) {
             browser = System.getenv("browser");
             if (browser == null) {
-                browser = "chrome";
+                browser = Configuration.BROWSER.getValue();
             }
         }
 
@@ -30,7 +30,7 @@ public class Hooks {
         if (url == null) {
             url = System.getenv("url");
             if (url == null) {
-                url = "http://automationpractice.com/index.php";
+                url = Configuration.TEST_ENV.getValue();
             }
         }
 

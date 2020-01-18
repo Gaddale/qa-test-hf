@@ -12,6 +12,12 @@ public class DriverFactory {
     private static BrowserConfig config;
     private static WebDriver driver;
 
+    private static WebDriver currentDriver = null;
+
+    public static void updateDriver(WebDriver driver) {
+        currentDriver = driver;
+    }
+
     public static WebDriver getNewDriver(String browser) {
         setBrowserInfo(browser);
         setDriver();
@@ -28,24 +34,13 @@ public class DriverFactory {
     }
 
     private static void setDriver() {
-        String mode = System.getProperty("mode");
-        if (mode != null && mode.contains("grid")) {
-            try {
-                driver =
-                        new RemoteWebDriver(
-                                new URL(Configuration.SELENIUM_HUB_URL.getValue()), config.getCapabilities());
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            }
-        } else {
             driver = config.getDriver();
-        }
     }
 
     private static void setBrowserInfo(String browser) {
         switch (browser.toLowerCase()) {
             case "chrome":
-                System.setProperty("webdriver.gecko.driver", "src/main/resources/chromedriver");
+                System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver");
                 config = new ChromeConfig();
                 break;
             case "firefox":
