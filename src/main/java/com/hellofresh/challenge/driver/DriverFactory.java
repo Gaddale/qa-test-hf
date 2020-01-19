@@ -2,21 +2,38 @@ package com.hellofresh.challenge.driver;
 
 import com.hellofresh.challenge.Configuration;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.remote.RemoteWebDriver;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.concurrent.TimeUnit;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DriverFactory {
     private static BrowserConfig config;
     private static WebDriver driver;
 
+    //    private static WebDriver currentDriver = null;
+    private static Map<Long, WebDriver> driverMap = new HashMap();
+
+//    public static void updateDriver(WebDriver driver) {
+//        currentDriver = driver;
+//    }
+
+    public static WebDriver getCurrentDriver() {
+        Thread curThread = Thread.currentThread();
+        return driverMap.get(curThread.getId());
+    }
+
     public static WebDriver getNewDriver(String browser) {
         setBrowserInfo(browser);
         setDriver();
         configureDriver();
-        return driver;
+        pushDriverToMap();
+        return getCurrentDriver();
+    }
+
+    private static void pushDriverToMap() {
+        Thread curThread = Thread.currentThread();
+        driverMap.put(curThread.getId(), driver);
     }
 
     private static void configureDriver() {
@@ -28,24 +45,13 @@ public class DriverFactory {
     }
 
     private static void setDriver() {
-        String mode = System.getProperty("mode");
-        if (mode != null && mode.contains("grid")) {
-            try {
-                driver =
-                        new RemoteWebDriver(
-                                new URL(Configuration.SELENIUM_HUB_URL.getValue()), config.getCapabilities());
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            }
-        } else {
-            driver = config.getDriver();
-        }
+        driver = config.getDriver();
     }
 
     private static void setBrowserInfo(String browser) {
         switch (browser.toLowerCase()) {
             case "chrome":
-                System.setProperty("webdriver.gecko.driver", "src/main/resources/chromedriver");
+                System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver");
                 config = new ChromeConfig();
                 break;
             case "firefox":
