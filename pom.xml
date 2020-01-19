@@ -103,13 +103,12 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.22.1</version>
                 <configuration>
-                    <parallel>classes</parallel>
-                    <forkMode>perthread</forkMode>
-                    <threadCount>3</threadCount>
-                    <argLine>-Xmx1024m -XX:MaxPermSize=256m</argLine>
-                    <includes>
-                        <include>**/*RunnerTest</include>
-                    </includes>
+                    <!--<parallel>classes</parallel>-->
+                    <!--<forkMode>perthread</forkMode>-->
+                    <!--<argLine>-Xmx1024m -XX:MaxPermSize=256m</argLine>-->
+                    <!--<includes>-->
+                        <!--<include>**/*Runner.java</include>-->
+                    <!--</includes>-->
                     <testFailureIgnore>true</testFailureIgnore>
                 </configuration>
             </plugin>

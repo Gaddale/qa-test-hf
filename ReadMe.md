@@ -1,3 +1,10 @@
+## Run Against Chrome
+mvn clean test -Dbrowser=chrome -Durl="http://automationpractice.com/index.php"
+
+## Run Against Firefox
+mvn clean test -Dbrowser=firefox -Durl="http://automationpractice.com/index.php"
+
+
 - logging -- Take care using lo4j
 
 - taking screenshot on failed tests --Taken Care in hooks
@@ -19,3 +26,4 @@
  -- ability to run tests for different environments(urls) by configuring/by command-line. --Taken care
 
  -- reading test data from file, for example, the name of dress, size and color in the checkout test. -- Cucumber feature
+

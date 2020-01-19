@@ -11,12 +11,7 @@ public class DriverFactory {
     private static BrowserConfig config;
     private static WebDriver driver;
 
-    //    private static WebDriver currentDriver = null;
     private static Map<Long, WebDriver> driverMap = new HashMap();
-
-//    public static void updateDriver(WebDriver driver) {
-//        currentDriver = driver;
-//    }
 
     public static WebDriver getCurrentDriver() {
         Thread curThread = Thread.currentThread();
