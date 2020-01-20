@@ -1,29 +1,30 @@
-## Run Against Chrome
-mvn clean test -Dbrowser=chrome -Durl="http://automationpractice.com/index.php"
+# Web-Automation-Test Challenge
 
-## Run Against Firefox
-mvn clean test -Dbrowser=firefox -Durl="http://automationpractice.com/index.php"
+## Tools used
 
+* Selenium, Cucumber and TestNG
+* Log4J for logging
+* Cucumber html for reporting
 
-- logging -- Take care using lo4j
+## Execution
 
-- taking screenshot on failed tests --Taken Care in hooks
+* Default browser is `chrome` and default url is `http://automationpractice.com/index.php` 
+* Run against chrome `mvn verify -Dbrowser='chrome'` 
+* Run against firefox `mvn verify -Dbrowser='firefox'` 
+* Run against specific url `mvn verify -Dbrowser='chrome' -Durl='https://google.co.in'`
 
-- generation human readable report; -- cucumber reports 
+## Logging
 
-- generating random values for insignificant test data, for example, for new user; --common utils
+* Captured logging under file `log/logging.log`
 
-- WebDriver factory -- Taken Care
+## Reporting
 
-- encapsulation layers like test data, logic of tests, actions on web pages and so on - Taken care
+* Cucumber html reports `target/cucumber-html-reports/overview-features.html`
 
-- configurator:
+## Note(Challenges in achieving parallel execution)
 
- -- run tests in parallel mode;
-
- -- ability to run tests for different browsers/OS by configuring (we are working with OS);-- Yes same can be achieved for OS
-
- -- ability to run tests for different environments(urls) by configuring/by command-line. --Taken care
-
- -- reading test data from file, for example, the name of dress, size and color in the checkout test. -- Cucumber feature
-
+* Tried using `Cucumber & Junit` with `maven-surefire-plugin`. I am able to achieve parallel execution, but it was very flaky.
+* Tried using `TestNGCucumberRunner` with `TestNG.xml`. I am able to launch 3 threads of browser instances, but the execution was 
+  happening on only one browser instance, because `Webdriver` object is static. This can be fixed using `ThreadLocal` implementation.
+* Parallel execution needs lot of exploration which in turn will consume lot of time.
+* I had achieved parallel execution in my previous company using tools `Cucumber, Capybara and Ruby` with `Selenium grid` and it was working flawlessly.    
