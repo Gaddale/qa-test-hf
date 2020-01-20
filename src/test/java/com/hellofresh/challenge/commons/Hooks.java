@@ -35,8 +35,8 @@ public class Hooks {
 
         driver = DriverFactory.getNewDriver(browser);
         driver.get(url);
-//        PageFactory.updateDriver(driver);
-//        DriverFactory.updateDriver(driver);
+        PageFactory.updateDriver(driver);
+
     }
 
     @After
@@ -50,7 +50,7 @@ public class Hooks {
             }
         }
         driver.findElement(By.cssSelector("[title=\"Log me out\"]")).click();
-        driver.close();
+//        driver.close();
         driver.quit();
     }
 }

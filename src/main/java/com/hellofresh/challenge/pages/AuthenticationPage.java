@@ -83,9 +83,12 @@ public class AuthenticationPage extends BasePage {
         return getElement(register);
     }
 
-    public void selectState() {
+    public void selectState() throws InterruptedException {
+        Thread.sleep(2000); //Added this wait as it was failing for firefox, tried with explicit wait bo luck
+        scrollDown();
         Select dropdown = new Select(getState());
-        dropdown.selectByIndex(CommonUtils.createRandomNumber());
+        int num = CommonUtils.createRandomNumber();
+        dropdown.selectByIndex(num);
     }
 
     public String enterPersonalInformation() {
@@ -99,7 +102,7 @@ public class AuthenticationPage extends BasePage {
         return fullName;
     }
 
-    public void enterAddress() {
+    public void enterAddress() throws InterruptedException {
         logger.info("Entering Address Details");
         getAddress().sendKeys("Address 123");
         getCity().sendKeys("Heilbornn");

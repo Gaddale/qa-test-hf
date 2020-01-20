@@ -1,6 +1,7 @@
 package com.hellofresh.challenge.pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -39,6 +40,16 @@ public abstract class BasePage {
     public void waitForElementToLoad(final By locator) {
         Wait<WebDriver> wait = new WebDriverWait(driver, 30);
         wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+    }
+
+    public void scrollDown(){
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,700)");
+
+    }
+
+    protected WebElement getXpath(String text, String searchText) {
+        return driver.findElement(By.xpath("//" + text + "[contains(text(),'" + searchText + "')]"));
     }
 
 

@@ -33,7 +33,7 @@ public class RegisterCustomer {
     }
 
     @And("^user enters all the mandatory fields and register$")
-    public void userEntersAllTheMandatoryFieldsAndRegister() {
+    public void userEntersAllTheMandatoryFieldsAndRegister() throws InterruptedException {
         logger.info("Create Account Page launched");
         fullName = authenticationPage.enterPersonalInformation();
         authenticationPage.enterAddress();

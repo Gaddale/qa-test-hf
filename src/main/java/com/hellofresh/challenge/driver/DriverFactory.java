@@ -2,39 +2,22 @@ package com.hellofresh.challenge.driver;
 
 import com.hellofresh.challenge.Configuration;
 import org.openqa.selenium.WebDriver;
-
 import java.util.concurrent.TimeUnit;
-import java.util.HashMap;
-import java.util.Map;
 
 public class DriverFactory {
     private static BrowserConfig config;
     private static WebDriver driver;
 
-    private static Map<Long, WebDriver> driverMap = new HashMap();
-
-    public static WebDriver getCurrentDriver() {
-        Thread curThread = Thread.currentThread();
-        return driverMap.get(curThread.getId());
-    }
-
     public static WebDriver getNewDriver(String browser) {
         setBrowserInfo(browser);
         setDriver();
         configureDriver();
-        pushDriverToMap();
-        return getCurrentDriver();
-    }
-
-    private static void pushDriverToMap() {
-        Thread curThread = Thread.currentThread();
-        driverMap.put(curThread.getId(), driver);
+        return driver;
     }
 
     private static void configureDriver() {
         driver.manage().window().maximize();
-        driver
-                .manage()
+        driver.manage()
                 .timeouts()
                 .implicitlyWait(Long.parseLong(Configuration.IMPLICIT_WAIT.getValue()), TimeUnit.SECONDS);
     }

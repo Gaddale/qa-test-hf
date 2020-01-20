@@ -1,3 +1,4 @@
+@ParallelTestingWithCucumber
 Feature: Existing customer should be able to login
 
   Scenario: Able to login with existing customer

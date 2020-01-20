@@ -1,3 +1,4 @@
+@ParallelTestingWithCucumber
 Feature: As a user I should be able to register on My store
 
   Scenario: Generated customer with all customer data
